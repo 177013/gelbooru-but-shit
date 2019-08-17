@@ -114,7 +114,7 @@ class image
         $ext = $ext[$count - 1];
         $ext = "." . $ext;
         $thumbnail_name = "thumbnail_" . $image;
-        $image = "./" . $this->image_path . "/" . $timage[0] . "/" . $image;
+        $image = PUBLIC_ROOT . "/" . $this->image_path . "/" . $timage[0] . "/" . $image;
         $imginfo = getimagesize($image);
         $tmp_ext = "." . str_replace("image/", "", $imginfo['mime']);
         if ($tmp_ext != $ext) {
@@ -141,19 +141,22 @@ class image
         $height = $imginfo[1] * $scale;
         $thumbnail = imagecreatetruecolor($width, $height);
         imagecopyresampled($thumbnail, $img, 0, 0, 0, 0, $width, $height, $imginfo[0], $imginfo[1]);
+
+        $thumbnailPath  = PUBLIC_ROOT . "/" . $this->thumbnail_path . "/" . $timage[0] . "/" . $thumbnail_name;
+
         if ($ext == ".jpg" || $ext == ".jpeg")
-            imagejpeg($thumbnail, "./" . $this->thumbnail_path . "/" . $timage[0] . "/" . $thumbnail_name, 95);
+            imagejpeg($thumbnail, $thumbnailPath, 95);
         else if ($ext == ".gif")
-            imagegif($thumbnail, "./" . $this->thumbnail_path . "/" . $timage[0] . "/" . $thumbnail_name);
+            imagegif($thumbnail, $thumbnailPath);
         else if ($ext == ".png")
-            imagepng($thumbnail, "./" . $this->thumbnail_path . "/" . $timage[0] . "/" . $thumbnail_name);
+            imagepng($thumbnail, $thumbnailPath);
         else if ($ext == ".bmp")
-            imagejpeg($thumbnail, "./" . $this->thumbnail_path . "/" . $timage[0] . "/" . $thumbnail_name, 95);
+            imagejpeg($thumbnail, $thumbnailPath, 95);
         else
             return false;
         imagedestroy($img);
         imagedestroy($thumbnail);
-        return true;
+        return $thumbnailPath;
     }
 
     function getremoteimage($url)
@@ -343,8 +346,11 @@ class image
 
     function makethumbnailfolder($folder)
     {
-        mkdir("./thumbnails/" . $folder . "/");
-        copy("./thumbnails/index.html", "./thumbnails/" . $folder . "/index.html");
+        $relative = str_replace(PUBLIC_ROOT, '', $folder);
+        $thumbnailFolder = THUMBNAIL_PATH;
+
+        mkdir($thumbnailFolder . '/' . $relative);
+        copy($thumbnailFolder . '/index.html', $thumbnailFolder . '/' . $folder . "/index.html");
     }
 
     function removeimage($id)

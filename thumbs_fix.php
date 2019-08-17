@@ -31,6 +31,7 @@ foreach ($dir_contents as $item) {
         $dirs[] = $item;
     }
 }
+
 foreach ($dirs as $current) {
     $dir_contents = scandir("./images/" . $current . "/");
     foreach ($dir_contents as $item) {

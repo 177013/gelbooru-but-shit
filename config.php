@@ -1,4 +1,10 @@
 <?php
+//thumbnails folder..
+$thumbnail_folder = "thumbnails";
+
+define('PUBLIC_ROOT', __DIR__);
+define('THUMBNAIL_PATH', PUBLIC_ROOT . '/' . $thumbnail_folder);
+
 $mysql_host = "127.0.0.1";
 $mysql_user = "root";
 $mysql_pass = "";
@@ -14,8 +20,6 @@ $site_url3 = "Localbooru";
 $image_folder = "images";
 //thumbnails dimension... same as in danbooru version...
 $dimension = 150;
-//thumbnails folder..
-$thumbnail_folder = "thumbnails";
 
 //user database table...
 $user_table = "users";
