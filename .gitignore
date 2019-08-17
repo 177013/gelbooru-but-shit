@@ -325,3 +325,6 @@ $RECYCLE.BIN/
 thumbnails/1/thumbnail_*
 images/1
 !images/1/.gitkeep
+
+cache
+!cache/.gitkeep
