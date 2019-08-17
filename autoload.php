@@ -1,6 +1,7 @@
 <?php
-	function __autoload($class)
-	{
-		require "classes/$class.class.php";
-	}
+function __autoload($class)
+{
+    require "classes/$class.class.php";
+}
+
 ?>
