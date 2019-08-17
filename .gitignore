@@ -328,3 +328,6 @@ images/1
 
 cache
 !cache/.gitkeep
+
+search_cache
+!search_cache/.gitkeep
