@@ -1,0 +1,18 @@
+0 comment<a href="#" id="ci" onclick="showHideIgnored(38,'ci'); return false;"> (0 hidden)</a><br /><br /><br /><div id='paginator'><script type="text/javascript">
+		//<![CDATA[
+		filterComments('38', '0')
+		//]]></script></div><a href="#" onclick="Javascript:showHide('comment_form'); return false;">>>Respond</a>
+		<form method="post" action="index.php?page=comment&amp;id=38&amp;s=save" name="comment_form" id="comment_form" style="display:none">
+		<table><tr><td>
+		<textarea name="comment" rows="0" cols="0"></textarea>
+		</td></tr><tr><td>Post as anonymous?<br />
+		<input type="checkbox" name="post_anonymous"/>
+		</td></tr><tr><td>
+		<input type="submit" name="submit" value="Post comment"/>
+		</td></tr><tr><td>
+		<input type="hidden" name="conf" id="conf" value="0"/>
+		</td></tr></table></form>
+		<script type="text/javascript">
+		//<![CDATA[
+		document.getElementById('conf').value=1;			
+		//]]></script>
