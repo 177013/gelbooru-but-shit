@@ -322,7 +322,8 @@ $RECYCLE.BIN/
 
 .idea
 
-thumbnails/1/thumbnail_*
+thumbnails/1
+!thumbnails/.gitkeep
 images/1
 !images/1/.gitkeep
 
