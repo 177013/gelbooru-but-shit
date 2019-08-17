@@ -254,5 +254,3 @@ class misc
         return $output;
     }
 }
-
-?>

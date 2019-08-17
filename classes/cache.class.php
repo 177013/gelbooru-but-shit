@@ -98,5 +98,3 @@ class cache
             unlink($file);
     }
 }
-
-?>

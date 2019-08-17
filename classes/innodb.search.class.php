@@ -138,5 +138,3 @@ class search
         return $query;
     }
 }
-
-?>

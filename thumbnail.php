@@ -17,4 +17,3 @@ while (!feof($f)) {
 fclose($f);
 print $data;
 flush();
-?>

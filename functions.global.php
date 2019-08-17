@@ -56,5 +56,3 @@ function mb_trim($string, $charlist = '\\\\s', $ltrim = true, $rtrim = true)
 
     return preg_replace("/$pattern_middle/usSD", '', $string);
 }
-
-?>

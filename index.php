@@ -39,4 +39,3 @@ if (isset($_GET['page']) && $_GET['page'] != "") {
     header("Pragma: cache");
     require "includes/index.php";
 }
-?>

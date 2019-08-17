@@ -71,5 +71,3 @@ class extimage extends image
         return $cdir . ":" . $filename . $ext;
     }
 }
-
-?>

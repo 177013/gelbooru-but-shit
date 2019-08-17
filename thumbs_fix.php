@@ -45,4 +45,3 @@ foreach ($dirs as $current) {
 
     }
 }
-?>

@@ -17,4 +17,3 @@ while ($row = $result->fetch_assoc()) {
     }
 }
 $result->free_result();
-?>

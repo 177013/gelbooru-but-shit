@@ -58,5 +58,3 @@ class post
         return $row;
     }
 }
-
-?>

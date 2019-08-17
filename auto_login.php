@@ -6,4 +6,3 @@ if (isset($_COOKIE['user_id']) && is_numeric($_COOKIE['user_id']) && isset($_COO
         setcookie("pass_hash", "", time() - 60 * 60 * 24 * 365);
     }
 }
-?>

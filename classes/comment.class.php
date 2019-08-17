@@ -91,5 +91,3 @@ class comment
         return $result->num_rows;
     }
 }
-
-?>

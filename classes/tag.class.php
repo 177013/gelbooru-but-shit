@@ -67,5 +67,3 @@ class tag
         return $ttags;
     }
 }
-
-?>

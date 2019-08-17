@@ -461,5 +461,3 @@ class image
         return $this->error;
     }
 }
-
-?>

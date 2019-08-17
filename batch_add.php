@@ -129,4 +129,3 @@ foreach ($cur_folder as $current_folder) {
     }
     $i++;
 }
-?>
