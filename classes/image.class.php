@@ -108,13 +108,13 @@ class image
     function thumbnail($image)
     {
         $timage = explode("/", $image);
-        $image = $timage[1];
+        $image = end($timage);
         $ext = explode(".", $image);
         $count = count($ext);
         $ext = $ext[$count - 1];
         $ext = "." . $ext;
         $thumbnail_name = "thumbnail_" . $image;
-        $image = PUBLIC_ROOT . "/" . $this->image_path . "/" . $timage[0] . "/" . $image;
+        $image = PUBLIC_ROOT . "/" . $this->image_path . "/" . implode('/', array_Slice($timage, 0, count($timage) - 1)) . "/" . $image;
         $imginfo = getimagesize($image);
         $tmp_ext = "." . str_replace("image/", "", $imginfo['mime']);
         if ($tmp_ext != $ext) {
@@ -349,8 +349,8 @@ class image
         $relative = str_replace(PUBLIC_ROOT, '', $folder);
         $thumbnailFolder = THUMBNAIL_PATH;
 
-        mkdir($thumbnailFolder . '/' . $relative);
-        copy($thumbnailFolder . '/index.html', $thumbnailFolder . '/' . $folder . "/index.html");
+        mkdir($thumbnailFolder . '/' . $relative, 0777, true);
+        copy($thumbnailFolder . '/index.html', $thumbnailFolder . '/' . $relative . "/index.html");
     }
 
     function removeimage($id)
