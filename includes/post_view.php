@@ -1,4 +1,6 @@
 <?php
+define('POST_VIEW_CACHE_ENABLED', false);
+
 //number of comments/page
 $limit = 10;
 //number of pages to display. number - 1. ex: for 5 value should be 4
@@ -25,7 +27,7 @@ $prev_next = $post->prev_next($id);
 
 if (!is_dir("$main_cache_dir" . "" . "\cache/$id"))
     $cache->create_page_cache("cache/$id");
-$data = $cache->load("cache/" . $id . "/post.cache");
+$data = POST_VIEW_CACHE_ENABLED ? $cache->load("cache/" . $id . "/post.cache") : false;
 if ($data !== false)
 {
     echo str_replace("f6ca1c7d5d00a2a3fb4ea2f7edfa0f96a6d09c11717f39facabad2d724f16fbb", $domain, $data);
@@ -73,7 +75,14 @@ while ($retme = $note_data->fetch_assoc()) {
 			<div style="display: none; top: ' . ($retme['width'] + $retme['y'] + 5) . 'px; left: ' . $retme['x'] . 'px;" class="note-body" id="note-body-' . $retme['id'] . '" title="Click to edit">' . $retme['body'] . '</div>
 			';
 }
-echo '<img alt="img" src="f6ca1c7d5d00a2a3fb4ea2f7edfa0f96a6d09c11717f39facabad2d724f16fbb/images/' . $post_data['directory'] . '/' . $post_data['image'] . '" id="image" onclick="Note.toggle();" style="margin-right: 70px;"/><br />Posted on ' . $post_data['creation_date'] . ' by  <a href="index.php?page=account_profile&amp;uname=' . $post_data['owner'] . '">' . $post_data['owner'] . '</a><br /><p id="note-count"></p>
+
+$ext = mb_strtolower(pathinfo($post_data['image'], PATHINFO_EXTENSION));
+
+$media = in_array($ext, ['webm', 'mp4'])
+    ? '<video controls style="width: 600px" src="f6ca1c7d5d00a2a3fb4ea2f7edfa0f96a6d09c11717f39facabad2d724f16fbb/images/' . $post_data['directory'] . '/' . $post_data['image'] . '" id="image"  style="margin-right: 70px;"/>'
+    : '<img alt="img" src="f6ca1c7d5d00a2a3fb4ea2f7edfa0f96a6d09c11717f39facabad2d724f16fbb/images/' . $post_data['directory'] . '/' . $post_data['image'] . '" id="image" onclick="Note.toggle();" style="margin-right: 70px;"/>';
+
+echo $media . '<br />Posted on ' . $post_data['creation_date'] . ' by  <a href="index.php?page=account_profile&amp;uname=' . $post_data['owner'] . '">' . $post_data['owner'] . '</a><br /><p id="note-count"></p>
 		<script type="text/javascript">
 		//<![CDATA[
 		Note.post_id = ' . $id . ';';
