@@ -111,7 +111,7 @@ class image {
         $ext = $ext[$count - 1];
         $ext = "." . $ext;
         $thumbnail_name = "thumbnail_" . $image;
-        $image = PUBLIC_ROOT . "/" . $this->image_path . "/" . implode('/', array_Slice($timage, 0, count($timage) - 1)) . "/" . $image;
+        $image = PUBLIC_ROOT . "/" . $this->image_path . "/" . implode('/', array_slice($timage, 0, count($timage) - 1)) . "/" . $image;
         $imginfo = getimagesize($image);
         $tmp_ext = "." . str_replace("image/", "", $imginfo['mime']);
         if ($tmp_ext != $ext) {
@@ -139,7 +139,13 @@ class image {
         $thumbnail = imagecreatetruecolor($width, $height);
         imagecopyresampled($thumbnail, $img, 0, 0, 0, 0, $width, $height, $imginfo[0], $imginfo[1]);
 
-        $thumbnailPath  = PUBLIC_ROOT . "/" . $this->thumbnail_path . "/" . $timage[0] . "/" . $thumbnail_name;
+        $thumbnailFullPath = PUBLIC_ROOT . "/" . $this->thumbnail_path . "/" . implode('/', array_slice($timage, 0, count($timage) - 1));
+
+        if (!file_exists($thumbnailFullPath)) {
+            mkdir($thumbnailFullPath, 0777, true);
+        }
+
+        $thumbnailPath  = $thumbnailFullPath . "/" . $thumbnail_name;
 
         if ($ext == ".jpg" || $ext == ".jpeg")
             imagejpeg($thumbnail, $thumbnailPath, 95);
