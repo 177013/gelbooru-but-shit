@@ -44,10 +44,22 @@ final class ThumbnailManager {
             : null;
     }
 
+    /**
+     * Turns a possibly absolute path into one relative to the project root
+     *
+     * @param string $path
+     * @return string
+     */
     private function makeRelative(string $path): string {
         return ltrim(str_replace($this->root, '', $path), '/');
     }
 
+    /**
+     * Creates a new thumbnail for the given image, replicating the folder structure inside the thumbnail directory
+     *
+     * @param string $imagePath can be absolute or relative to the project root
+     * @return string the newly created thumbnail's path, relative to the project root
+     */
     public function makeThumbnail(string $imagePath): string {
         $relative = str_replace(PUBLIC_ROOT, '', $imagePath);
         $thumbnailFolder = THUMBNAIL_PATH;

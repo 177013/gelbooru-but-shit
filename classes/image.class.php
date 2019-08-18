@@ -1,14 +1,12 @@
 <?php
 
-class image
-{
+class image {
     private $image_path;
     private $thumbnail_path;
     private $dimension;
     public $error;
 
-    function __construct()
-    {
+    function __construct() {
         global $image_folder;
         global $dimension;
         global $thumbnail_folder;
@@ -17,8 +15,7 @@ class image
         $this->dimension = $dimension;
     }
 
-    function ImageCreateFromBMP($filename)
-    {
+    function ImageCreateFromBMP($filename) {
         /*********************************************/
         /* Fonction: ImageCreateFromBMP              */
         /* Author:   DHKold                          */
@@ -159,8 +156,7 @@ class image
         return $thumbnailPath;
     }
 
-    function getremoteimage($url)
-    {
+    function getremoteimage($url) {
         global $min_upload_width, $min_upload_height, $max_upload_width, $max_upload_height;
         $misc = new misc();
         if ($url == "" || $url == " ")
@@ -234,8 +230,7 @@ class image
         return $cdir . ":" . $filename . $ext;
     }
 
-    function getcurrentfolder()
-    {
+    function getcurrentfolder() {
         global $db, $folder_index_table;
         $query = "SELECT name FROM $folder_index_table WHERE count < 1000 ORDER BY count DESC LIMIT 1";
         $result = $db->query($query);
@@ -257,15 +252,13 @@ class image
         }
     }
 
-    function makefolder($folder)
-    {
+    function makefolder($folder) {
         mkdir("./images/" . $folder);
         copy("./images/index.html", "./images/" . $folder . "/index.html");
         $this->makesqlfolder($folder);
     }
 
-    function makesqlfolder($folder)
-    {
+    function makesqlfolder($folder) {
         global $db, $folder_index_table;
         $query = "SELECT COUNT(*) FROM $folder_index_table WHERE name='$folder'";
         $result = $db->query($query) or die($db->error);
@@ -276,8 +269,7 @@ class image
         }
     }
 
-    function process_upload($upload)
-    {
+    function process_upload($upload) {
         global $min_upload_width, $min_upload_height, $max_upload_width, $max_upload_height;
         if ($upload == "")
             return false;
@@ -325,15 +317,13 @@ class image
         return $cdir . ":" . $fname . $ext;
     }
 
-    function folder_index_increment($folder)
-    {
+    function folder_index_increment($folder) {
         global $db, $folder_index_table;
         $query = "UPDATE $folder_index_table SET count=count+1 WHERE name='$folder'";
         $db->query($query);
     }
 
-    function folder_index_decrement($folder)
-    {
+    function folder_index_decrement($folder) {
         global $db, $folder_index_table;
         $query = "SELECT count FROM $folder_index_table WHERE name='$folder'";
         $result = $db->query($query) or die($db->error);
@@ -344,8 +334,7 @@ class image
         }
     }
 
-    function makethumbnailfolder($folder)
-    {
+    function makethumbnailfolder($folder) {
         $relative = str_replace(PUBLIC_ROOT, '', $folder);
         $thumbnailFolder = THUMBNAIL_PATH;
 
@@ -353,8 +342,7 @@ class image
         copy($thumbnailFolder . '/index.html', $thumbnailFolder . '/' . $relative . "/index.html");
     }
 
-    function removeimage($id)
-    {
+    function removeimage($id) {
         global $db, $post_table, $note_table, $note_history_table, $user_table, $group_table, $favorites_table, $favorites_count_table, $comment_table, $comment_vote_table, $deleted_image_table;
         $can_delete = false;
         $id = $db->real_escape_string($id);
@@ -439,8 +427,7 @@ class image
         return false;
     }
 
-    function checksum($file)
-    {
+    function checksum($file) {
         global $db, $post_table, $deleted_image_table;
         $i = 0;
         $tmp_md5_sum = md5_file($file);
@@ -462,8 +449,7 @@ class image
             return true;
     }
 
-    function geterror()
-    {
+    function geterror() {
         return $this->error;
     }
 }
