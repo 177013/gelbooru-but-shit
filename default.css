@@ -600,10 +600,50 @@ div#tag-list {
     margin-bottom: 2em;
 }
 
-div#tag-list div.space a {
-    padding-right: 5px;
+.tag-list {
+    list-style-type: none;
 }
 
+.tag-list-item {
+    padding: 1px 5px;
+    position: relative;
+    display: flex;
+}
+
+.tag-list-item:after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    height: 1px;
+    background: #f1f1f1;
+    left: 20px;
+    right: 0;
+}
+
+.tag-list-name {
+    text-decoration: none !important;
+    color: #006ffa;
+}
+
+.tag-list-button {
+    cursor: pointer;
+    text-decoration: none !important;
+    height: 16px;
+    flex: 0 0 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tag-list-button.is-success {
+    color: #25c10b;
+    font-weight: bold;
+}
+
+.tag-list-button.is-danger {
+    color: #c10f0f;
+    font-weight: bold;
+}
 
 div#alpha-paginator {
     text-align: center;

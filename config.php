@@ -98,6 +98,7 @@ $anon_can_upload = true;
 $edit_limit = 20;
 //cache dir, all cache will be stored in subdirs to this. Put it on RAM or FAST Raid drives.
 //$main_cache_dir = "NUL:\\";
+$main_cache_dir = "";
 
 $lowerlimit = 20;
 $no_cache = false;
@@ -107,4 +108,4 @@ $new_user_list = 'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii';
 $new_cthreshold = 0;
 $new_pthreshold = 0;
 $new_my_tags = '';
-error_reporting(0);
+error_reporting(-1);

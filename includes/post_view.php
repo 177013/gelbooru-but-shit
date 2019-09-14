@@ -64,7 +64,16 @@ echo '<div class="sidebar"><div class="space">
             <ul>';
 foreach ($ttags as $current) {
     $count = $post->index_count($current);
-    echo '<li><span style="color: #a0a0a0;">? <a href="index.php?page=post&amp;s=list&amp;tags=' . $current . '">' . str_replace('_', ' ', $current) . "</a> " . $count['index_count'] . "</span></li>";
+    ?>
+    <li class="tag-list-item">
+        <span class="tag-list-button">?</span>
+        <span style="color: #a0a0a0;">
+            <a class="tag-list-name" href="index.php?page=post&amp;s=list&amp;tags=<?= $current ?>">
+                <?= str_replace('_', ' ', $current) ?>
+            </a>
+        </span>
+    </li>
+    <?php
 }
 echo '<li><br /><br /><br /><br /><br /><br /><br /><br /></li></ul></div></div>
             <b>Score</b> <a href="#" onclick="Javascript:post_vote(\'' . $id . '\', \'up\')">+</a> <a href="#" onclick="Javascript:post_vote(\'' . $id . '\', \'down\')">-</a> <a id="psc">' . $post_data['score'] . '</a> ';
