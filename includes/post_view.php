@@ -76,12 +76,15 @@ foreach ($ttags as $current) {
     <?php
 }
 echo '<li><br /><br /><br /><br /><br /><br /><br /><br /></li></ul></div></div>
-            <b>Score</b> <a href="#" onclick="Javascript:post_vote(\'' . $id . '\', \'up\')">+</a> <a href="#" onclick="Javascript:post_vote(\'' . $id . '\', \'down\')">-</a> <a id="psc">' . $post_data['score'] . '</a> ';
+            ';
+echo '<div class="content" id="right-col">';
+echo '<div><b>Score</b> <a href="#" onclick="Javascript:post_vote(\'' . $id . '\', \'up\')">+</a> <a href="#" onclick="Javascript:post_vote(\'' . $id . '\', \'down\')">-</a> <a id="psc">' . $post_data['score'] . '</a> ';
 if ($post_data['spam'] == false)
     echo '<a id="rp' . $id . '"></a><a href="#" id="rpl' . $id . '" onclick="Element.toggle(\'report_form\')">Report post.</a><br /><form id="report_form" method="post" action="./public/report.php?type=post&amp;rid=' . $id . '" style="display: none;">Reason for report:<br /><input type="text" name="reason" value=""/><input type="submit" name="submit" value="" style="display: none;"/></form>';
 else
     print '<b>Post reported</b><br />';
-echo '<div class="content" id="right-col"><div><div id="note-container">';
+echo '</div>';
+echo'<div><div id="note-container">';
 
 $note_data = $post->get_notes($id);
 while ($retme = $note_data->fetch_assoc()) {

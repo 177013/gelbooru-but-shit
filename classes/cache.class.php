@@ -26,6 +26,7 @@ class cache
 
     function load($file)
     {
+        return false;
         global $main_cache_dir;
         if (!is_dir($main_cache_dir))
             @mkdir($main_cache_dir);

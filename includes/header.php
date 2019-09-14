@@ -25,13 +25,48 @@
         <h2><a href="<?= $site_url ?>index.php" class="site-name"><?= $site_url3 ?></a></h2>
     </div>
     <ul class="flat-list" id="navbar">
-        <li><a class="navbar-link" href="<?= $site_url ?>index.php?page=account">My Account</a></li>
-        <li><a class="navbar-link" href="<?= $site_url ?>index.php?page=post&amp;s=list&amp;tags=all">Posts</a></li>
-        <li><a class="navbar-link" href="<?= $site_url ?>index.php?page=comment&amp;s=list">Comments</a></li>
-        <li><a class="navbar-link" href="<?= $site_url ?>index.php?page=alias&amp;s=list">Alias</a></li>
-        <li><a class="navbar-link" href="<?= $site_url ?>index.php?page=forum&amp;s=list">Forum</a></li>
-        <li><a class="navbar-link" href="<?= $site_url ?>index.php?page=post&amp;s=random">Random</a></li>
-        <li><a class="navbar-link" href="<?= $site_url ?>help/index.php">Help</a></li>
+        <?php
+        $page = $_GET['page'] ?? '';
+        $links = [
+            [
+                'url' => 'index.php?page=account',
+                'text' => 'My Account',
+                'active' => $page === 'account',
+            ],[
+                'url' => 'index.php?page=post&amp;s=list&amp;tags=all',
+                'text' => 'Posts',
+                'active' => $page === 'post',
+            ],[
+                'url' => 'index.php?page=comment&amp;s=list',
+                'text' => 'Comments',
+                'active' => $page === 'comment',
+            ],[
+                'url' => 'index.php?page=alias&amp;s=list',
+                'text' => 'Alias',
+                'active' => $page === 'alias',
+            ],[
+                'url' => 'index.php?page=forum&amp;s=list',
+                'text' => 'Forum',
+                'active' => $page === 'forum',
+            ],[
+                'url' => 'index.php?page=post&amp;s=random',
+                'text' => 'Random',
+            ],[
+                'url' => 'help/index.php',
+                'text' => 'Help'
+            ],
+        ];
+        ?>
+
+        <?php foreach ($links as $link) { ?>
+        <li>
+            <a class="navbar-link <?= ($link['active'] ?? false) ? 'is-active' : '' ?>"
+               href="<?= $site_url . $link['url'] ?>">
+                <?= $link['text'] ?>
+            </a>
+        </li>
+        <?php } ?>
+
         <li id="notice"></li>
     </ul>
 </div>

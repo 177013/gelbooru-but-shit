@@ -201,10 +201,6 @@ h5 a:hover {
     padding: 15px;
 }
 
-div#content {
-
-}
-
 div#footer {
     margin-top: 1em;
     text-align: center;
@@ -213,21 +209,9 @@ div#footer {
     clear: both;
 }
 
-div.sidebar {
-    width: 20%;
-    margin-right: 1em;
-    float: left;
-    overflow: hidden;
-}
-
 div.sidebar li {
     list-style-type: none;
     margin: 0;
-}
-
-div.content {
-    float: left;
-    width: 78%;
 }
 
 div.option {
@@ -319,6 +303,12 @@ ul.flat-list {
     text-decoration: none !important;
 }
 
+.navbar-link.is-active {
+    background: white;
+    color: #2f2f2f;
+    font-weight: bold;
+}
+
 li#notice {
     color: red;
     font-weight: bold;
@@ -352,10 +342,13 @@ div#paginator span {
 }
 
 div#paginator a {
+    text-decoration: none !important;
     margin: 0 3px;
     padding: 2px 6px;
     font-weight: normal;
-    border: 1px solid #EAEAEA;
+    background: #2f2f2f;
+    color: white;
+    border-radius: 2px;
 }
 
 div#paginator a.current {
@@ -960,4 +953,36 @@ a.code {
     max-height: calc(100vh - 100px);
     width: auto;
     height: auto;
+}
+
+.post-search {
+    display: flex;
+}
+
+#post-list,
+#post-view {
+    display: flex;
+}
+
+.sidebar {
+    flex: 0 0 278px;
+}
+
+.post-search-input {
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    border-right: none;
+}
+
+.post-search-submit {
+    -webkit-appearance: none;
+    border: 1px solid #ccc;
+    background: #f1f1f1;
+    cursor: pointer;
+}
+
+.post-search-help {
+    font-style: italic;
+    color: #666;
+    font-size: 9px;
 }

@@ -14,17 +14,17 @@ require "includes/header.php";?>
     <div id="post-list">
         <div class="sidebar">
             <div class="space">
-                <h5>Search</h5>
-                <form action="index.php?page=search" method="post">
+                <form action="index.php?page=search" method="post" class="post-search">
                     <input id="tags" name="tags" size="20" type="text"
-                           value="<?php if (isset($_GET['tags']) && $_GET['tags'] != "all") {
-                               print str_replace("%", '', str_replace("'", "&#039;", str_replace('"', '&quot;', $_GET['tags'])));
-                           } ?>"/>
-                    <br/><input name="commit"
-                                style="margin-top: 3px; background: #fff; border: 1px solid #dadada; width: 172px;"
-                                type="submit" value="Search"/>
+                           class="post-search-input"
+                           value="<?= isset($_GET['tags']) && $_GET['tags'] != "all"
+                               ? str_replace("%", '', str_replace("'", "&#039;", str_replace('"', '&quot;', $_GET['tags'])))
+                               : '' ?>"/>
+                    <input name="commit"
+                           class="post-search-submit"
+                           type="submit" value="Search"/>
                 </form>
-                <small>(Supports wildcard *)</small>
+                <small class="post-search-help">(Supports wildcard *)</small>
             </div>
             <div class="space"></div>
             <div id="tag_list">
