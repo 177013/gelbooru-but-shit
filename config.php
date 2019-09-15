@@ -108,4 +108,4 @@ $new_user_list = 'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii';
 $new_cthreshold = 0;
 $new_pthreshold = 0;
 $new_my_tags = '';
-error_reporting(0);
+error_reporting(-1);
