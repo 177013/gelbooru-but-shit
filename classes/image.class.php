@@ -112,6 +112,11 @@ class image {
         $ext = "." . $ext;
         $thumbnail_name = "thumbnail_" . $image;
         $image = PUBLIC_ROOT . "/" . $this->image_path . "/" . implode('/', array_slice($timage, 0, count($timage) - 1)) . "/" . $image;
+
+        if (!file_exists($image)) {
+            return null;
+        }
+
         $imginfo = getimagesize($image);
         $tmp_ext = "." . str_replace("image/", "", $imginfo['mime']);
         if ($tmp_ext != $ext) {

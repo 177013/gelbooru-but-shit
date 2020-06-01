@@ -72,6 +72,7 @@ final class ThumbnailManager {
             $image->makethumbnailfolder($relativeFolder);
         }
 
-        return $this->makeRelative($image->thumbnail($relative));
+        $thumbnail = $image->thumbnail($relative);
+        return $thumbnail ? $this->makeRelative($thumbnail) : '';
     }
 }
