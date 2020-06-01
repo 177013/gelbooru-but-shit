@@ -108,4 +108,5 @@ $new_user_list = 'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii';
 $new_cthreshold = 0;
 $new_pthreshold = 0;
 $new_my_tags = '';
-error_reporting(-1);
+ini_set('memory_limit', '2G');
+error_reporting(0);
