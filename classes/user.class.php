@@ -84,8 +84,8 @@ class user
     function check_log()
     {
         global $db, $user_table, $checked_username, $checked_user_id, $checked_user_group;
-        $id = $db->real_escape_string($_COOKIE['user_id']);
-        $pass_hash = $db->real_escape_string($_COOKIE['pass_hash']);
+        $id = $db->real_escape_string($_COOKIE['user_id'] ?? '');
+        $pass_hash = $db->real_escape_string($_COOKIE['pass_hash'] ?? '');
         $query = "SELECT * FROM $user_table WHERE id='$id' AND pass='$pass_hash'";
         $result = $db->query($query);
         $row = $result->fetch_assoc();

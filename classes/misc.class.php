@@ -230,9 +230,12 @@ class misc
             $tmp_limit = $pages;
         if ($pages > $page_limit)
             $lowerlimit = $pages - $page_limit;
-        if ($start > $lowerlimit)
-            $start = $lowerlimit;
+        if ($start > ($lowerlimit ?? 0))
+            $start = ($lowerlimit ?? 0);
         $lastpage = $limit * ($pages - 1);
+
+        $has_tags = $has_tags ?? '';
+
         if ($page != 0 && !((($page + $limit) / $limit) > $pages)) {
             $back_page = $page - $limit;
             $output .= '<a href="?page=' . $page_type . '' . $sub . '' . $query . '' . $has_id . '' . $has_tags . '&amp;pid=0" alt="first page">&lt;&lt;</a><a href="?page=' . $page_type . '' . $sub . '' . $query . '' . $has_id . '' . $has_tags . '&amp;pid=' . $back_page . '" alt="back">&lt;</a>';

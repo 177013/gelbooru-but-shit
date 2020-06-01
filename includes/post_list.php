@@ -17,7 +17,7 @@ require "includes/header.php";?>
                 <form action="index.php?page=search" method="post" class="post-search">
                     <input id="tags" name="tags" size="20" type="text"
                            class="post-search-input"
-                           value="<?= isset($_GET['tags']) && $_GET['tags'] != "all"
+                           value="<?= isset($_GET['tags']) && $_GET['tags'] !== "all"
                                ? str_replace("%", '', str_replace("'", "&#039;", str_replace('"', '&quot;', $_GET['tags'])))
                                : '' ?>"/>
                     <input name="commit"
@@ -41,7 +41,7 @@ require "includes/header.php";?>
 
                     $search = new search();
                     //No tags  have been searched for so let's check the last_update value to update our main page post count for parent posts. Updated once a day.
-                    if (!isset($_GET['tags']) || isset($_GET['tags']) && $_GET['tags'] == "all" || isset($_GET['tags']) && $_GET['tags'] == "") {
+                    if (!isset($_GET['tags']) || (isset($_GET['tags']) && $_GET['tags'] === "all") || (isset($_GET['tags']) && $_GET['tags'] == "")) {
                         $query = "SELECT pcount, last_update FROM $post_count_table WHERE access_key='posts'";
                         $result = $db->query($query);
                         $row = $result->fetch_assoc();
@@ -62,54 +62,69 @@ require "includes/header.php";?>
                         $tag_count = count($tags);
                         $new_tag_cache = urldecode($tags[0]);
                         $misc = new misc();
-                        if (strpos(strtolower($new_tag_cache), "parent:") === false && strpos(strtolower($new_tag_cache), "user:") === false && strpos(strtolower($new_tag_cache), "rating:") === false && strpos($new_tag_cache, "*") === false)
+                        if (strpos(strtolower($new_tag_cache), "parent:") === false && strpos(strtolower($new_tag_cache), "user:") === false && strpos(strtolower($new_tag_cache), "rating:") === false && strpos($new_tag_cache, "*") === false) {
                             $new_tag_cache = $misc->windows_filename_fix($new_tag_cache);
-                        if (isset($_GET['pid']) && is_numeric($_GET['pid']) && $_GET['pid'] > 0)
+                        }
+                        if (isset($_GET['pid']) && is_numeric($_GET['pid']) && $_GET['pid'] > 0) {
                             $page = ($_GET['pid'] / $limit) + 1;
-                        else
+                        }
+                        else {
                             $page = 0;
+                        }
                         if ($tag_count > 1 || !is_dir(($main_cache_dir ?? '') . "" . "search_cache/" . $new_tag_cache . "/")
-                            || !file_exists(($main_cache_dir ?? '') . "" . "search_cache/" . $new_tag_cache . "/" . $page . ".html") || strpos(strtolower($new_tag_cache), "all") !== false || strpos(strtolower($new_tag_cache), "user:") !== false || strpos(strtolower($new_tag_cache), "rating:") !== false || substr($new_tag_cache, 0, 1) == "-" || strpos(strtolower($new_tag_cache), "*") !== false || strpos(strtolower($new_tag_cache), "parent:") !== false) {
-                            if (!is_dir(($main_cache_dir ?? '') . "" . "search_cache/"))
+                            || !file_exists(($main_cache_dir ?? '') . "" . "search_cache/" . $new_tag_cache . "/" . $page . ".html") || strpos(strtolower($new_tag_cache), "all") !== false || strpos(strtolower($new_tag_cache), "user:") !== false || strpos(strtolower($new_tag_cache), "rating:") !== false || strpos($new_tag_cache, "-") === 0 || strpos(strtolower($new_tag_cache), "*") !== false || strpos(strtolower($new_tag_cache), "parent:") !== false) {
+                            if (!is_dir(($main_cache_dir ?? '') . "" . "search_cache/")) {
                                 @mkdir(($main_cache_dir ?? '') . "" . "search_cache");
+                            }
                             $query = $search->prepare_tags(implode(" ", $tags));
                             $result = $db->query($query) or die($db->error);
                             $numrows = $result->num_rows;
                             $result->free_result();
-                            if ($tag_count > 1 || strtolower($new_tag_cache) == "all" || strpos(strtolower($new_tag_cache), "user:") !== false || strpos(strtolower($new_tag_cache), "rating:") !== false || substr($new_tag_cache, 0, 1) == "-" || strpos(strtolower($new_tag_cache), "*") !== false || strpos(strtolower($new_tag_cache), "parent:") !== false)
+                            if ($tag_count > 1 || strtolower($new_tag_cache) === "all" || strpos(strtolower($new_tag_cache), "user:") !== false || strpos(strtolower($new_tag_cache), "rating:") !== false || strpos($new_tag_cache, "-") === 0 || strpos(strtolower($new_tag_cache), "*") !== false || strpos(strtolower($new_tag_cache), "parent:") !== false) {
                                 $no_cache = false;
+                            }
                             else {
-                                if (!is_dir(($main_cache_dir ?? '') . "" . "search_cache/" . $new_tag_cache . "/"))
+                                if (!is_dir(($main_cache_dir ?? '') . "" . "search_cache/" . $new_tag_cache . "/")) {
                                     @mkdir(($main_cache_dir ?? '') . "" . "search_cache/" . $new_tag_cache . "/");
+                                }
                                 $no_cache = true;
                             }
                         } else {
-                            if (!is_dir(($main_cache_dir ?? '') . "" . "search_cache/"))
+                            if (!is_dir(($main_cache_dir ?? '') . "" . "search_cache/")) {
                                 mkdir(($main_cache_dir ?? '') . "" . "search_cache");
+                            }
                             $tags = $new_tag_cache;
-                            if (isset($_GET['pid']) && is_numeric($_GET['pid']) && $_GET['pid'] > 0)
+                            if (isset($_GET['pid']) && is_numeric($_GET['pid']) && $_GET['pid'] > 0) {
                                 $page = ($_GET['pid'] / $limit) + 1;
-                            else
+                            }
+                            else {
                                 $page = 0;
+                            }
                         }
                     }
                     //No images found
-                    if ($numrows == 0)
+                    if ($numrows == 0) {
                         print '</ul></div></div><div class="content"><div><h1>Nobody here but us chickens!</h1>';
+                    }
                     else {
-                        if (isset($_GET['pid']) && $_GET['pid'] != "" && is_numeric($_GET['pid']) && $_GET['pid'] >= 0)
+                        if (isset($_GET['pid']) && $_GET['pid'] != "" && is_numeric($_GET['pid']) && $_GET['pid'] >= 0) {
                             $page = $db->real_escape_string($_GET['pid']);
-                        else
-                            $page = 0;
-                        if (!isset($_GET['tags']) || isset($_GET['tags']) && $_GET['tags'] == "all" || isset($_GET['tags']) && $_GET['tags'] == "")
-                            $query = "SELECT id, image, directory, score, rating, tags, owner FROM $post_table WHERE parent = '0' ORDER BY id DESC LIMIT $page, $limit";
-                        else {
-                            if ($no_cache === true || $tag_count > 1 || strpos(strtolower($new_tag_cache), "user:") !== false || strpos(strtolower($new_tag_cache), "rating:") !== false || substr($new_tag_cache, 0, 1) == "-" || strpos(strtolower($new_tag_cache), "*") !== false || strpos(strtolower($new_tag_cache), "parent:") !== false)
-                                $query = $query . " LIMIT $page, $limit";
                         }
-                        if (!isset($_GET['tags']) || $no_cache === true || $tag_count > 1 || strtolower($_GET['tags']) == "all" || strpos(strtolower($new_tag_cache), "user:") !== false || strpos(strtolower($new_tag_cache), "rating:") !== false || substr($new_tag_cache, 0, 1) == "-" || strpos(strtolower($new_tag_cache), "*") !== false || strpos(strtolower($new_tag_cache), "parent:") !== false) {
-                            if ($no_cache === true)
+                        else {
+                            $page = 0;
+                        }
+                        if (!isset($_GET['tags']) || (isset($_GET['tags']) && $_GET['tags'] === "all") || (isset($_GET['tags']) && $_GET['tags'] == "")) {
+                            $query = "SELECT id, image, directory, score, rating, tags, owner FROM $post_table WHERE parent = '0' ORDER BY id DESC LIMIT $page, $limit";
+                        }
+                        else {
+                            if ($no_cache === true || $tag_count > 1 || strpos(strtolower($new_tag_cache), "user:") !== false || strpos(strtolower($new_tag_cache), "rating:") !== false || strpos($new_tag_cache, "-") === 0 || strpos(strtolower($new_tag_cache), "*") !== false || strpos(strtolower($new_tag_cache), "parent:") !== false) {
+                                $query = $query . " LIMIT $page, $limit";
+                            }
+                        }
+                        if (!isset($_GET['tags']) || $no_cache === true || $tag_count > 1 || strtolower($_GET['tags']) === "all" || strpos(strtolower($new_tag_cache), "user:") !== false || strpos(strtolower($new_tag_cache), "rating:") !== false || strpos($new_tag_cache, "-") === 0 || strpos(strtolower($new_tag_cache), "*") !== false || strpos(strtolower($new_tag_cache), "parent:") !== false) {
+                            if ($no_cache === true) {
                                 ob_start();
+                            }
 
                             $gtags = array();
                             $images = '';
@@ -121,7 +136,7 @@ require "includes/header.php";?>
                                 if ($tcount <= 40) {
                                     $ttags = explode(" ", $tags);
                                     foreach ($ttags as $current) {
-                                        if ($current != "" && $current != " ") {
+                                        if ($current != "" && $current !== " ") {
                                             $gtags[$current] = $current;
                                             ++$tcount;
                                         }
@@ -133,7 +148,6 @@ require "includes/header.php";?>
                                         <a id="p:id" href=":href">
                                             <img src=":imgSrc" 
                                                  alt="post" 
-                                                 border="0" 
                                                  title=":title"/>
                                         </a>', [
                                     ':id' => $row['id'],
@@ -159,10 +173,12 @@ require "includes/header.php";?>
                                 ++$tcount;
                             }
                             $result->free_result();
-                            if (isset($_GET['tags']) && $_GET['tags'] != "" && $_GET['tags'] != "all")
+                            if (isset($_GET['tags']) && $_GET['tags'] != "" && $_GET['tags'] !== "all") {
                                 $ttags = $db->real_escape_string(str_replace("'", "&#039;", $_GET['tags']));
-                            else
+                            }
+                            else {
                                 $ttags = "";
+                            }
                             asort($gtags);
                             /*Tags have been sorted in ascending order
                             Let's now grab the index count from database
