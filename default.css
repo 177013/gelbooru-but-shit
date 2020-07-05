@@ -40,6 +40,10 @@ img {
     vertical-align: middle;
 }
 
+img[data-has_children="true"] {
+	box-shadow: 5px 10px #888;
+}
+
 input {
     padding: 0 0.5em;
 }
