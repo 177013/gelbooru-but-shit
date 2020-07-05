@@ -132,6 +132,7 @@ require "includes/header.php";?>
                             $result = $db->query($query) or die($db->error);
                             //Limit main tag listing to 40 tags. Keep the loop down to the minimum really.
                             while ($row = $result->fetch_assoc()) {
+								$post = new post();
                                 $tags = mb_trim($row['tags']);
                                 if ($tcount <= 40) {
                                     $ttags = explode(" ", $tags);
@@ -148,6 +149,7 @@ require "includes/header.php";?>
                                         <a id="p:id" href=":href">
                                             <img src=":imgSrc" 
                                                  alt="post" 
+                                                 data-has_children=":hasChildren"
                                                  title=":title"/>
                                         </a>', [
                                     ':id' => $row['id'],
@@ -157,6 +159,7 @@ require "includes/header.php";?>
                                             'id' => $row['id'],
                                         ]),
                                     ':imgSrc' => $thumbnailManager->makeIfNeeded($row['directory'] . '/' . $row['image']),
+                                    ':hasChildren' => $post->has_children($row['id']),
                                     ':title' => $row['tags'] . ' score:' . $row['score'] . ' rating:' . $row['rating'],
                                 ]);
 
